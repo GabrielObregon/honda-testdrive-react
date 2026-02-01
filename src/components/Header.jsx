@@ -1,12 +1,11 @@
 import styles from "../styles/Header.module.css";
+import hondaImg from "../assets/honda.png";
 
 function Header() {
-  const marca = "Honda";
-
   return (
     <header className={styles.header}>
-      <h1>Agendamento de Test Drive {marca}</h1>
-      <p>Escolha seu modelo e agende seu test drive</p>
+      <img src={hondaImg} alt="Honda" className={styles.logo} />
+      <h1>Agendamento de Test Drive Honda</h1>
     </header>
   );
 }

@@ -1,0 +1,11 @@
+{
+  "agendamentos": [
+    {
+      "id": 1,
+      "nome": "João",
+      "email": "joao@email.com",
+      "modelo": "CG 160",
+      "data": "2026-02-10"
+    }
+  ]
+}

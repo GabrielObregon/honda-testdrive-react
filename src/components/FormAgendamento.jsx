@@ -32,6 +32,16 @@ function FormAgendamento({ onAdicionar }) {
         placeholder="Nome"
         value={nome}
         onChange={e => setNome(e.target.value)}
+        onKeyDown={() => console.log("Digitando nome")}
+        required
+       />
+  
+      <input
+        type="text"
+        className="form-control mb-2"
+        placeholder="Nome"
+        value={nome}
+        onChange={e => setNome(e.target.value)}
         required
       />
 
@@ -51,9 +61,9 @@ function FormAgendamento({ onAdicionar }) {
         required
       >
         <option value="">Selecione o modelo</option>
-        <option value="Civic">Civic</option>
-        <option value="HR-V">HR-V</option>
-        <option value="City">City</option>
+        <option value="Cg 160">Cg 160</option>
+        <option value="Biz">Biz</option>
+        <option value="CB 250">CB 250</option>
       </select>
 
       <input

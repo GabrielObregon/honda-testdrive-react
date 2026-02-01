@@ -1,11 +1,11 @@
 function ListaAgendamentos({ agendamentos }) {
+  const temAgendamento = agendamentos.length > 0;
+
   return (
-    <div className="card p-3">
+    <div className={`card p-3 ${temAgendamento ? "border-success" : "border-danger"}`}>
       <h5>Agendamentos</h5>
 
-      {agendamentos.length === 0 && (
-        <p>Nenhum agendamento realizado</p>
-      )}
+      {!temAgendamento && <p>Nenhum agendamento realizado</p>}
 
       <ul className="list-group">
         {agendamentos.map((item, index) => (

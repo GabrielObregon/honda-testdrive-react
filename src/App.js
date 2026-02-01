@@ -1,13 +1,15 @@
-import { useState } from "react";
 import Header from "./components/Header";
 import FormAgendamento from "./components/FormAgendamento";
 import ListaAgendamentos from "./components/ListaAgendamentos";
+import { useApi } from "./hooks/useApi";
 
 function App() {
-  const [agendamentos, setAgendamentos] = useState([]);
+  const { dados: agendamentos, post } = useApi(
+    "http://localhost:3001/agendamentos"
+  );
 
   function adicionarAgendamento(novo) {
-    setAgendamentos([...agendamentos, novo]);
+    post(novo);
   }
 
   return (
