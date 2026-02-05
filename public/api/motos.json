@@ -33,11 +33,53 @@
     "categoria": "Naked",
     "cilindrada": "249cc",
     "preco": 22990,
-    "imagem": "/imagens/honda-twister.jpg",
+    "imagem": "/imagens/honda-twister.png",
     "ficha": {
       "potencia": "22,6 cv",
       "peso": "142 kg",
       "tanque": "14L",
+      "freio": "ABS"
+    }
+  },
+  {
+    "id": 4,
+    "nome": "Honda XRE 300",
+    "categoria": "Trail",
+    "cilindrada": "291cc",
+    "preco": 25990,
+    "imagem": "/imagens/honda-xre300.webp",
+    "ficha": {
+      "potencia": "25,9 cv",
+      "peso": "150 kg",
+      "tanque": "15L",
+      "freio": "ABS"
+    }
+  },
+  {
+    "id": 5,
+    "nome": "Honda PCX 160",
+    "categoria": "Scooter",
+    "cilindrada": "157cc",
+    "preco": 19990,
+    "imagem": "/imagens/honda-pcx160.webp",
+    "ficha": {
+      "potencia": "15,8 cv",
+      "peso": "133 kg",
+      "tanque": "8L",
+      "freio": "ABS"
+    }
+  },
+  {
+    "id": 6,
+    "nome": "Honda CB 500F",
+    "categoria": "Naked",
+    "cilindrada": "471cc",
+    "preco": 35990,
+    "imagem": "/imagens/honda-cb500f.webp",
+    "ficha": {
+      "potencia": "47,6 cv",
+      "peso": "190 kg",
+      "tanque": "17L",
       "freio": "ABS"
     }
   }

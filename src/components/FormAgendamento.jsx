@@ -1,10 +1,12 @@
-// src/components/FormAgendamento.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useApi from "../hooks/useApi";
-import "./FormAgendamento.css";
+import usePostApi from "../hooks/usePostApi";
+import "../styles/FormAgendamento.css";
 
 const FormAgendamento = () => {
   const { data: motos } = useApi("/api/motos.json");
+  const { postData, loading: submitting, success, resetSuccess } = usePostApi();
+
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -34,26 +36,60 @@ const FormAgendamento = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(
-      "Test Ride agendado com sucesso! Entraremos em contato para confirmar.",
-    );
-    setFormData({
-      nome: "",
-      email: "",
-      idade: "",
-      telefone: "",
-      motoId: "",
-      data: "",
-      horario: "",
-    });
+
+    const motoSelecionada = motos?.find((m) => m.id == formData.motoId);
+
+    const dadosParaEnviar = {
+      ...formData,
+      motoNome: motoSelecionada?.nome || "Não informada",
+    };
+
+    try {
+      await postData(dadosParaEnviar);
+
+      setFormData({
+        nome: "",
+        email: "",
+        idade: "",
+        telefone: "",
+        motoId: "",
+        data: "",
+        horario: "",
+      });
+    } catch (err) {
+      console.error("Erro:", err);
+    }
   };
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        resetSuccess();
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [success, resetSuccess]);
 
   return (
     <section id="agendar" className="agendamento-section">
       <h2>Agendar Test Ride</h2>
       <p className="subtitulo">Preencha os dados abaixo</p>
+
+      {}
+      {success && (
+        <div className="mensagem-sucesso">
+          <div className="mensagem-conteudo">
+            <span className="mensagem-icon">✓</span>
+            <div className="mensagem-texto">
+              <strong>Agendamento enviado com sucesso!</strong>
+              <p>Mandaremos mais informações no seu email em breve.</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="agendamento-form">
         <div className="form-grid">
@@ -165,8 +201,8 @@ const FormAgendamento = () => {
           </div>
         </div>
 
-        <button type="submit" className="submit-btn">
-          Enviar Agendamento
+        <button type="submit" className="submit-btn" disabled={submitting}>
+          {submitting ? "Enviando..." : "Enviar Agendamento"}
         </button>
       </form>
     </section>

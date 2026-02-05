@@ -1,6 +1,5 @@
-// src/components/MotoCard.jsx
 import React from "react";
-import "./MotoCard.css";
+import "../styles/MotoCard.css";
 
 const MotoCard = ({ moto }) => {
   // Função para tratar erro de imagem

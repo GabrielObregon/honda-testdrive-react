@@ -1,7 +1,6 @@
-// src/components/Comparador.jsx
 import React, { useState } from "react";
 import useApi from "../hooks/useApi";
-import "./Comparador.css";
+import "../styles/Comparador.css";
 
 const Comparador = () => {
   const { data: motos, loading, error } = useApi("/api/motos.json");

@@ -1,22 +1,19 @@
-// src/components/Destaques.jsx
 import React from "react";
 import useApi from "../hooks/useApi";
-import "./Destaques.css";
+import "../styles/Destaques.css";
 
 const Destaques = () => {
   const { data: motos, loading, error } = useApi("/api/motos.json");
 
-  // Descrições para os destaques
   const descricoes = {
-    "Honda CG 160": "Robusta e confiável no dia a dia.",
-    "Honda Biz 125": "Potência, estabilidade e conforto urbano.",
+    "Honda CG 160": "Versátil e confiável no dia a dia.",
+    "Honda Biz 125": "Estabilidade e conforto urbano.",
     "Honda CB 250F Twister": "Potência e conforto em equilíbrio.",
   };
 
   if (loading) return <div className="loading">Carregando destaques...</div>;
   if (error) return <div className="error">Erro ao carregar: {error}</div>;
 
-  // Use as 3 motos da API para os destaques
   const destaques = motos
     ? motos.slice(0, 3).map((moto) => ({
         ...moto,
@@ -29,7 +26,7 @@ const Destaques = () => {
   return (
     <section id="destaques" className="destaques-section">
       <h2>Destaques</h2>
-      <p className="subtitulo">Modelos em evidência</p>
+      <p className="subtitulo">Modelos em alta</p>
 
       <div className="destaques-grid">
         {destaques.map((destaque) => (

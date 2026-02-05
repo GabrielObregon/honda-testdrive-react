@@ -1,6 +1,5 @@
-// src/components/FAQ.jsx
 import React, { useState } from "react";
-import "./FAQ.css";
+import "../styles/FAQ.css";
 
 const FAQ = () => {
   const [perguntaAberta, setPerguntaAberta] = useState(null);

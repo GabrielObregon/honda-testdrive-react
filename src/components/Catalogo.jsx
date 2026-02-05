@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useApi from "../hooks/useApi";
 import MotoCard from "./MotoCard";
-import "./Catalogo.css";
+import "../styles/Catalogo.css";
 
 const Catalogo = () => {
   const { data: motos, loading, error } = useApi("/api/motos.json");

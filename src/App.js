@@ -7,6 +7,7 @@ import Catalogo from "./components/Catalogo";
 import Comparador from "./components/Comparador";
 import FormAgendamento from "./components/FormAgendamento";
 import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <FormAgendamento />
         <FAQ />
       </main>
+      <Footer /> {/* Adicione esta linha */}
     </div>
   );
 }
