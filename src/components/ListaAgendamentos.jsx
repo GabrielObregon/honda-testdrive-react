@@ -1,21 +1,33 @@
-function ListaAgendamentos({ agendamentos }) {
-  const temAgendamento = agendamentos.length > 0;
+import { useEffect, useState } from "react";
+import { getMotos, deletarMoto } from "../hooks/useApi";
+
+export default function ListaAgendamentos() {
+  const [motos, setMotos] = useState([]);
+
+  async function carregarMotos() {
+    const dados = await getMotos();
+    setMotos(dados);
+  }
+
+  useEffect(() => {
+    carregarMotos();
+  }, []);
+
+  async function removerMoto(id) {
+    await deletarMoto(id);
+    carregarMotos();
+  }
 
   return (
-    <div className={`card p-3 ${temAgendamento ? "border-success" : "border-danger"}`}>
-      <h5>Agendamentos</h5>
+    <div>
+      <h2>Motos cadastradas</h2>
 
-      {!temAgendamento && <p>Nenhum agendamento realizado</p>}
-
-      <ul className="list-group">
-        {agendamentos.map((item, index) => (
-          <li key={index} className="list-group-item">
-            <strong>{item.nome}</strong> - {item.modelo} ({item.data})
-          </li>
-        ))}
-      </ul>
+      {motos.map((moto) => (
+        <div key={moto.id}>
+          <strong>{moto.nome}</strong> - {moto.cc}cc - R$ {moto.preco}
+          <button onClick={() => removerMoto(moto.id)}>Excluir</button>
+        </div>
+      ))}
     </div>
   );
 }
-
-export default ListaAgendamentos;

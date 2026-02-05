@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "nome": "Honda CG 160",
+    "categoria": "Street",
+    "cilindrada": "162cc",
+    "preco": 16990,
+    "imagem": "https://www.honda.com.br/motos/sites/hda/files/2023-10/cg160-start-vermelha.png",
+    "ficha": {
+      "potencia": "14,9 cv",
+      "peso": "116 kg",
+      "tanque": "16L",
+      "freio": "Disco/Tambor"
+    }
+  },
+  {
+    "id": 2,
+    "nome": "Honda Biz 125",
+    "categoria": "Scooter",
+    "cilindrada": "124cc",
+    "preco": 13990,
+    "imagem": "https://www.honda.com.br/motos/sites/hda/files/2023-10/biz125-vermelha.png",
+    "ficha": {
+      "potencia": "9,2 cv",
+      "peso": "100 kg",
+      "tanque": "5L",
+      "freio": "CBS"
+    }
+  },
+  {
+    "id": 3,
+    "nome": "Honda CB 250F Twister",
+    "categoria": "Naked",
+    "cilindrada": "249cc",
+    "preco": 22990,
+    "imagem": "https://www.honda.com.br/motos/sites/hda/files/2023-10/cb250f-preta.png",
+    "ficha": {
+      "potencia": "22,6 cv",
+      "peso": "142 kg",
+      "tanque": "14L",
+      "freio": "ABS"
+    }
+  }
+]

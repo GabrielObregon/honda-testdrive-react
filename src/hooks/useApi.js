@@ -1,25 +1,29 @@
-import { useEffect, useState } from "react";
+// src/hooks/useApi.js
+import { useState, useEffect } from "react";
 
-export function useApi(url) {
-  const [dados, setDados] = useState([]);
+const useApi = (endpoint) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(json => setDados(json));
-  }, [url]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(endpoint);
+        if (!response.ok) throw new Error("Erro ao carregar dados");
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  function post(dado) {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(dado)
-    })
-    .then(res => res.json())
-    .then(novo => setDados(prev => [...prev, novo]));
-  }
+    fetchData();
+  }, [endpoint]);
 
-  return { dados, post };
-}
+  return { data, loading, error };
+};
+
+export default useApi;

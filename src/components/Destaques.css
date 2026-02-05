@@ -1,0 +1,41 @@
+.destaques-section {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.subtitulo {
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+.destaques-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.destaque-card {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.destaque-card:hover {
+  transform: translateY(-5px);
+}
+
+.destaque-card h3 {
+  color: #e40521;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.destaque-card p {
+  color: #666;
+  margin-bottom: 20px;
+  min-height: 60px;
+}
