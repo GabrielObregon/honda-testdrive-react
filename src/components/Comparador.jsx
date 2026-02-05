@@ -1,105 +1,126 @@
 // src/components/Comparador.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useApi from "../hooks/useApi";
 import "./Comparador.css";
 
 const Comparador = () => {
   const { data: motos, loading, error } = useApi("/api/motos.json");
-  const [moto1, setMoto1] = useState("");
-  const [moto2, setMoto2] = useState("");
-  const [comparacao, setComparacao] = useState(null);
+  const [moto1, setMoto1] = useState(null);
+  const [moto2, setMoto2] = useState(null);
 
-  useEffect(() => {
-    if (moto1 && moto2 && motos) {
-      const motoA = motos.find((m) => m.id === parseInt(moto1));
-      const motoB = motos.find((m) => m.id === parseInt(moto2));
-      if (motoA && motoB) {
-        setComparacao({ motoA, motoB });
-      }
-    } else {
-      setComparacao(null);
-    }
-  }, [moto1, moto2, motos]);
+  const specs = [
+    { key: "nome", label: "Modelo" },
+    { key: "categoria", label: "Categoria" },
+    { key: "cilindrada", label: "Cilindrada" },
+    { key: "preco", label: "Preço" },
+    { key: "potencia", label: "Potência" },
+    { key: "peso", label: "Peso" },
+    { key: "tanque", label: "Tanque" },
+    { key: "freio", label: "Freio" },
+  ];
 
-  if (loading) return <div className="loading">Carregando...</div>;
-  if (error) return <div className="error">Erro: {error}</div>;
+  if (loading) return <div className="loading">Carregando comparador...</div>;
+  if (error) return <div className="error">Erro ao carregar: {error}</div>;
 
   return (
     <section id="comparador" className="comparador-section">
       <h2>Comparador</h2>
-      <p className="subtitulo">Compare especificações técnicas.</p>
+      <p className="subtitulo">Compare especificações técnicas</p>
 
-      <div className="comparador-select">
-        <select value={moto1} onChange={(e) => setMoto1(e.target.value)}>
-          <option value="">Selecione uma moto</option>
-          {motos &&
-            motos.map((moto) => (
-              <option key={moto.id} value={moto.id}>
-                {moto.nome}
+      <div className="comparador-filtros">
+        <div className="filtro-group">
+          <div className="custom-select">
+            <select
+              onChange={(e) =>
+                setMoto1(motos.find((m) => m.id === parseInt(e.target.value)))
+              }
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Selecione uma moto
               </option>
-            ))}
-        </select>
+              {motos.map((moto) => (
+                <option key={`moto1-${moto.id}`} value={moto.id}>
+                  {moto.nome}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-        <select value={moto2} onChange={(e) => setMoto2(e.target.value)}>
-          <option value="">Selecione outra moto</option>
-          {motos &&
-            motos.map((moto) => (
-              <option key={moto.id} value={moto.id}>
-                {moto.nome}
+        <div className="vs-separator">
+          <span>vs</span>
+        </div>
+
+        <div className="filtro-group">
+          <div className="custom-select">
+            <select
+              onChange={(e) =>
+                setMoto2(motos.find((m) => m.id === parseInt(e.target.value)))
+              }
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Selecione outra moto
               </option>
-            ))}
-        </select>
+              {motos.map((moto) => (
+                <option key={`moto2-${moto.id}`} value={moto.id}>
+                  {moto.nome}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
 
-      {comparacao && (
-        <div className="tabela-comparacao">
-          <h3>Comparação</h3>
+      {(moto1 || moto2) && (
+        <div className="comparador-tabela">
           <table>
             <thead>
               <tr>
                 <th>Especificação</th>
-                <th>{comparacao.motoA.nome}</th>
-                <th>{comparacao.motoB.nome}</th>
+                <th>{moto1 ? moto1.nome : "---"}</th>
+                <th>{moto2 ? moto2.nome : "---"}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Categoria</td>
-                <td>{comparacao.motoA.categoria}</td>
-                <td>{comparacao.motoB.categoria}</td>
-              </tr>
-              <tr>
-                <td>Cilindrada</td>
-                <td>{comparacao.motoA.cilindrada}</td>
-                <td>{comparacao.motoB.cilindrada}</td>
-              </tr>
-              <tr>
-                <td>Preço</td>
-                <td>R$ {comparacao.motoA.preco.toLocaleString("pt-BR")}</td>
-                <td>R$ {comparacao.motoB.preco.toLocaleString("pt-BR")}</td>
-              </tr>
-              <tr>
-                <td>Potência</td>
-                <td>{comparacao.motoA.ficha.potencia}</td>
-                <td>{comparacao.motoB.ficha.potencia}</td>
-              </tr>
-              <tr>
-                <td>Peso</td>
-                <td>{comparacao.motoA.ficha.peso}</td>
-                <td>{comparacao.motoB.ficha.peso}</td>
-              </tr>
-              <tr>
-                <td>Tanque</td>
-                <td>{comparacao.motoA.ficha.tanque}</td>
-                <td>{comparacao.motoB.ficha.tanque}</td>
-              </tr>
-              <tr>
-                <td>Freio</td>
-                <td>{comparacao.motoA.ficha.freio}</td>
-                <td>{comparacao.motoB.ficha.freio}</td>
-              </tr>
+              {specs.map((spec, index) => (
+                <tr key={index}>
+                  <td className="spec-label">{spec.label}</td>
+                  <td className="spec-value">
+                    {moto1
+                      ? spec.key === "preco"
+                        ? `R$ ${moto1[spec.key].toLocaleString("pt-BR")}`
+                        : spec.key === "potencia" ||
+                            spec.key === "peso" ||
+                            spec.key === "tanque" ||
+                            spec.key === "freio"
+                          ? moto1.ficha[spec.key]
+                          : moto1[spec.key]
+                      : "---"}
+                  </td>
+                  <td className="spec-value">
+                    {moto2
+                      ? spec.key === "preco"
+                        ? `R$ ${moto2[spec.key].toLocaleString("pt-BR")}`
+                        : spec.key === "potencia" ||
+                            spec.key === "peso" ||
+                            spec.key === "tanque" ||
+                            spec.key === "freio"
+                          ? moto2.ficha[spec.key]
+                          : moto2[spec.key]
+                      : "---"}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {!moto1 && !moto2 && (
+        <div className="comparador-placeholder">
+          <p>Selecione duas motos para comparar as especificações</p>
         </div>
       )}
     </section>

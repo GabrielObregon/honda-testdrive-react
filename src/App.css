@@ -1,4 +1,4 @@
-/* src/App.css */
+/* src/App.css - versão simplificada */
 * {
   margin: 0;
   padding: 0;
@@ -6,9 +6,10 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
-  line-height: 1.6;
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.5;
   color: #333;
+  background-color: #fff;
 }
 
 .App {
@@ -16,7 +17,9 @@ body {
 }
 
 main {
-  padding: 20px 40px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 section {
@@ -24,22 +27,32 @@ section {
 }
 
 h2 {
-  color: #e40521;
-  margin-bottom: 20px;
   font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 button {
-  background-color: #e40521;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-family: inherit;
 }
 
-button:hover {
-  background-color: #c0041b;
+input,
+select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* Responsividade básica */
+@media (min-width: 768px) {
+  main {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding: 60px;
+  }
 }

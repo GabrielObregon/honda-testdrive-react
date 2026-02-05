@@ -15,17 +15,30 @@ const FormAgendamento = () => {
     horario: "",
   });
 
+  const horarios = [
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+  ];
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui você faria a requisição para enviar o agendamento
-    console.log("Dados do agendamento:", formData);
-    alert("Test ride agendado com sucesso!");
-    // Resetar o formulário
+    alert(
+      "Test Ride agendado com sucesso! Entraremos em contato para confirmar.",
+    );
     setFormData({
       nome: "",
       email: "",
@@ -42,8 +55,8 @@ const FormAgendamento = () => {
       <h2>Agendar Test Ride</h2>
       <p className="subtitulo">Preencha os dados abaixo</p>
 
-      <form onSubmit={handleSubmit} className="form-agendamento">
-        <div className="form-row">
+      <form onSubmit={handleSubmit} className="agendamento-form">
+        <div className="form-grid">
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
             <input
@@ -52,10 +65,11 @@ const FormAgendamento = () => {
               name="nome"
               value={formData.nome}
               onChange={handleChange}
-              required
               placeholder="Seu nome completo"
+              required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -64,13 +78,11 @@ const FormAgendamento = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
               placeholder="seu@email.com"
+              required
             />
           </div>
-        </div>
 
-        <div className="form-row">
           <div className="form-group">
             <label htmlFor="idade">Idade</label>
             <input
@@ -79,11 +91,13 @@ const FormAgendamento = () => {
               name="idade"
               value={formData.idade}
               onChange={handleChange}
-              required
-              min="18"
               placeholder="18"
+              min="18"
+              max="100"
+              required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="telefone">Telefone</label>
             <input
@@ -92,31 +106,32 @@ const FormAgendamento = () => {
               name="telefone"
               value={formData.telefone}
               onChange={handleChange}
-              required
               placeholder="(11) 99999-9999"
+              required
             />
           </div>
-        </div>
 
-        <div className="form-row">
           <div className="form-group">
             <label htmlFor="motoId">Moto de interesse</label>
-            <select
-              id="motoId"
-              name="motoId"
-              value={formData.motoId}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecione uma moto</option>
-              {motos &&
-                motos.map((moto) => (
-                  <option key={moto.id} value={moto.id}>
-                    {moto.nome}
-                  </option>
-                ))}
-            </select>
+            <div className="custom-select">
+              <select
+                id="motoId"
+                name="motoId"
+                value={formData.motoId}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Selecione uma moto</option>
+                {motos &&
+                  motos.map((moto) => (
+                    <option key={moto.id} value={moto.id}>
+                      {moto.nome}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
+
           <div className="form-group">
             <label htmlFor="data">Data preferencial</label>
             <input
@@ -128,16 +143,25 @@ const FormAgendamento = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="horario">Horário preferencial</label>
-            <input
-              type="time"
-              id="horario"
-              name="horario"
-              value={formData.horario}
-              onChange={handleChange}
-              required
-            />
+            <div className="custom-select">
+              <select
+                id="horario"
+                name="horario"
+                value={formData.horario}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Selecione um horário</option>
+                {horarios.map((hora) => (
+                  <option key={hora} value={hora}>
+                    {hora}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,3 @@
-// src/components/Catalogo.jsx
 import React, { useState } from "react";
 import useApi from "../hooks/useApi";
 import MotoCard from "./MotoCard";

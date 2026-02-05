@@ -1,4 +1,3 @@
-// src/hooks/useApi.js
 import { useState, useEffect } from "react";
 
 const useApi = (endpoint) => {
@@ -9,7 +8,10 @@ const useApi = (endpoint) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(endpoint);
+        const baseUrl =
+          process.env.NODE_ENV === "development" ? "http://localhost:3000" : "";
+
+        const response = await fetch(`${baseUrl}${endpoint}`);
         if (!response.ok) throw new Error("Erro ao carregar dados");
         const result = await response.json();
         setData(result);
